@@ -35,7 +35,7 @@ const ForgotPassword = () => {
 
     try {
       await sendPasswordResetEmail(auth, userInfo.email, {
-        url: 'http://localhost:5173/login',
+        url: 'https://firebase-auth-demo.netlify.app/login',
       });
       console.log('successfully sent forgot password reset email');
 
