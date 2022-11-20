@@ -19,7 +19,6 @@ import { useContext } from 'react';
 
 const AuthRequired = ({ children }) => {
   const location = useLocation();
-  console.log(location);
 
   const { currentUser } = useContext(AuthContext);
 
