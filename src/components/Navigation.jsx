@@ -4,10 +4,14 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 
-import { Link, NavLink } from 'react-router-dom';
+import { signOut } from 'firebase/auth';
+import { auth } from '../utils/firebase.config';
 
 const Navigation = () => {
+  const navigate = useNavigate();
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -23,9 +27,39 @@ const Navigation = () => {
           >
             Register
           </Button>
-          <Button color="inherit">Login</Button>
-          <Button color="inherit">Profile</Button>
-          <Button color="inherit">Private</Button>
+          <Button
+            component={NavLink}
+            to="/login"
+            sx={{ '&.active': { bgcolor: 'primary.dark' } }}
+            color="inherit"
+          >
+            Login
+          </Button>
+          <Button
+            component={NavLink}
+            to="/profile"
+            sx={{ '&.active': { bgcolor: 'primary.dark' } }}
+            color="inherit"
+          >
+            Profile
+          </Button>
+          <Button
+            component={NavLink}
+            to="/private"
+            sx={{ '&.active': { bgcolor: 'primary.dark' } }}
+            color="inherit"
+          >
+            Private
+          </Button>
+          <Button
+            color="inherit"
+            onClick={() => {
+              signOut(auth);
+              navigate('/login');
+            }}
+          >
+            Log Out
+          </Button>
         </Toolbar>
       </AppBar>
     </Box>
