@@ -10,13 +10,15 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { Copyright } from '@mui/icons-material';
-import { Link as Navigate, useNavigate } from 'react-router-dom';
+import { Link as Navigate, useNavigate, useLocation } from 'react-router-dom';
 
 import { signInWithEmailAndPassword } from 'firebase/auth';
 
 import { auth } from '../utils/firebase.config';
 
 const Login = () => {
+  const location = useLocation();
+
   const [userInfo, setUserInfo] = useState({
     email: '',
     password: '',
@@ -37,7 +39,7 @@ const Login = () => {
 
     try {
       await signInWithEmailAndPassword(auth, userInfo.email, userInfo.password);
-      navigate('/profile');
+      navigate(location?.state?.from || '/profile');
     } catch (err) {
       console.log(err.message);
     }
