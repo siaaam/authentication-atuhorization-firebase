@@ -16,7 +16,6 @@ import { Link as Navigate, useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 import { auth } from '../utils/firebase.config';
-import { async } from '@firebase/util';
 
 const Register = () => {
   const [userInfo, setUserInfo] = useState({
