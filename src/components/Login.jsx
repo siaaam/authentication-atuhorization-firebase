@@ -12,7 +12,11 @@ import Container from '@mui/material/Container';
 import { Copyright } from '@mui/icons-material';
 import { Link as Navigate, useNavigate, useLocation } from 'react-router-dom';
 
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import {
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from 'firebase/auth';
 
 import { auth } from '../utils/firebase.config';
 
@@ -31,6 +35,17 @@ const Login = () => {
       ...userInfo,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const googleSignIn = async () => {
+    const provider = new GoogleAuthProvider();
+
+    try {
+      await signInWithPopup(auth, provider);
+      navigate(location?.state?.from || '/profile');
+    } catch (err) {
+      console.log(err.message);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -94,6 +109,16 @@ const Login = () => {
             sx={{ mt: 3, mb: 2 }}
           >
             Sign In
+          </Button>
+
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+            onClick={googleSignIn}
+          >
+            Sign In with Google
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
