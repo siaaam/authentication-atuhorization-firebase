@@ -17,15 +17,25 @@ import Login from './components/Login';
 import { AuthContext, AuthProvider } from './context/Auth.context';
 import { useContext } from 'react';
 
+import './utils/firebase.config';
+
+import Notes from './components/Notes';
+import AddNote from './components/AddNote';
+import EditNote from './components/EditNote';
+
 const AuthRequired = ({ children }) => {
   const location = useLocation();
 
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, loading } = useContext(AuthContext);
 
-  if (currentUser) {
-    return children;
+  if (loading) {
+    if (currentUser) {
+      return children;
+    } else {
+      return <Navigate to="/login" state={{ from: location.pathname }} />;
+    }
   } else {
-    return <Navigate to="/login" state={{ from: location.pathname }} />;
+    return 'loading...';
   }
 };
 
@@ -36,6 +46,25 @@ function App() {
         <Navigation />
         <Routes>
           <Route path="/register" element={<Register />} />
+
+          <Route path="/notes" element={<Notes />} />
+          <Route
+            path="/notes/add"
+            element={
+              <AuthRequired>
+                <AddNote />
+              </AuthRequired>
+            }
+          />
+          <Route
+            path="/notes/edit/:noteID"
+            element={
+              <AuthRequired>
+                <EditNote />
+              </AuthRequired>
+            }
+          />
+
           <Route path="/login" element={<Login />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />

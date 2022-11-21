@@ -42,7 +42,14 @@ const Navigation = () => {
               </Button>
             </>
           )}
-
+          <Button
+            component={NavLink}
+            to="/notes"
+            sx={{ '&.active': { bgcolor: 'primary.dark' } }}
+            color="inherit"
+          >
+            Notes
+          </Button>
           {currentUser && (
             <>
               <Button
@@ -53,6 +60,16 @@ const Navigation = () => {
               >
                 Profile
               </Button>
+
+              <Button
+                component={NavLink}
+                to="/notes/add"
+                sx={{ '&.active': { bgcolor: 'primary.dark' } }}
+                color="inherit"
+              >
+                Add Note
+              </Button>
+
               <Button
                 component={NavLink}
                 to="/private"
