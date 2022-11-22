@@ -22,6 +22,7 @@ import './utils/firebase.config';
 import Notes from './components/Notes';
 import AddNote from './components/AddNote';
 import EditNote from './components/EditNote';
+import { NotesProvider } from './context/Notes.context';
 
 const AuthRequired = ({ children }) => {
   const location = useLocation();
@@ -41,52 +42,54 @@ const AuthRequired = ({ children }) => {
 
 function App() {
   return (
-    <AuthProvider>
-      <BrowserRouter>
-        <Navigation />
-        <Routes>
-          <Route path="/register" element={<Register />} />
+    <NotesProvider>
+      <AuthProvider>
+        <BrowserRouter>
+          <Navigation />
+          <Routes>
+            <Route path="/register" element={<Register />} />
 
-          <Route path="/notes" element={<Notes />} />
-          <Route
-            path="/notes/add"
-            element={
-              <AuthRequired>
-                <AddNote />
-              </AuthRequired>
-            }
-          />
-          <Route
-            path="/notes/edit/:noteID"
-            element={
-              <AuthRequired>
-                <EditNote />
-              </AuthRequired>
-            }
-          />
+            <Route path="/notes" element={<Notes />} />
+            <Route
+              path="/notes/add"
+              element={
+                <AuthRequired>
+                  <AddNote />
+                </AuthRequired>
+              }
+            />
+            <Route
+              path="/notes/edit/:noteID"
+              element={
+                <AuthRequired>
+                  <EditNote />
+                </AuthRequired>
+              }
+            />
 
-          <Route path="/login" element={<Login />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
-          <Route
-            path="/profile"
-            element={
-              <AuthRequired>
-                <Profile />
-              </AuthRequired>
-            }
-          />
-          <Route
-            path="/private"
-            element={
-              <AuthRequired>
-                <Private />
-              </AuthRequired>
-            }
-          />
-        </Routes>
-      </BrowserRouter>
-    </AuthProvider>
+            <Route path="/login" element={<Login />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route
+              path="/profile"
+              element={
+                <AuthRequired>
+                  <Profile />
+                </AuthRequired>
+              }
+            />
+            <Route
+              path="/private"
+              element={
+                <AuthRequired>
+                  <Private />
+                </AuthRequired>
+              }
+            />
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
+    </NotesProvider>
   );
 }
 
