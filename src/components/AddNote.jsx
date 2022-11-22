@@ -37,7 +37,6 @@ const AddNote = () => {
         console.log('Note added successfully');
       })
       .catch((err) => console.log(err.message));
-    console.log(note);
   };
 
   return (

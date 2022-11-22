@@ -13,7 +13,7 @@ import Container from '@mui/material/Container';
 import { Copyright } from '@mui/icons-material';
 import { Link as Navigate, useNavigate } from 'react-router-dom';
 
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 
 import { auth } from '../utils/firebase.config';
 
@@ -44,7 +44,11 @@ const Register = () => {
         userInfo.email,
         userInfo.password
       );
-      console.log(user);
+
+      updateProfile(auth.currentUser, {
+        displayName: userInfo.firstName + ' ' + userInfo.lastName,
+      });
+
       navigate('/profile');
     } catch (err) {
       console.log(err.message);
