@@ -72,7 +72,7 @@ const Note = ({ note }) => {
           transformOrigin={{ horizontal: 'right', vertical: 'top' }}
           anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
         >
-          <MenuItem component={Link} to={`edit/${note.id}`}>
+          <MenuItem component={Link} to={`/notes/edit/${note.id}`}>
             Edit
           </MenuItem>
           <MenuItem onClick={handleDelete}>Delete</MenuItem>
